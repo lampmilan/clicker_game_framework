@@ -1,0 +1,156 @@
+[gd_scene load_steps=14 format=3 uid="uid://b0ih08yuqeulc"]
+
+[ext_resource type="Texture2D" uid="uid://cp7lg6cr8s514" path="res://img/window_ui/download_window_bg.png" id="1_cj0h3"]
+[ext_resource type="Script" path="res://scripts/popup_window_script.gd" id="1_dfkmm"]
+[ext_resource type="Texture2D" uid="uid://bwysl4lo0kk78" path="res://img/window_ui/download_window_bg_shadow.png" id="1_fj7b8"]
+[ext_resource type="Texture2D" uid="uid://3rxrscgyqs87" path="res://img/window_ui/download_window_button.png" id="2_y8l7b"]
+[ext_resource type="FontFile" uid="uid://cw7wh6t7c0bb6" path="res://fonts/Roboto-Black.ttf" id="3_pk68c"]
+[ext_resource type="Script" path="res://scripts/GameTitle.gd" id="5_k7wo8"]
+[ext_resource type="Texture2D" uid="uid://b4bnlpwf5ll4l" path="res://img/window_ui/download_window_button_CLICK.png" id="7_th1rf"]
+[ext_resource type="Texture2D" uid="uid://dpqfetje1w0rc" path="res://img/window_ui/download_window_button_HOVER.png" id="8_2vnds"]
+
+[sub_resource type="Animation" id="Animation_2sh12"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.88, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.88, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_q82df"]
+resource_name = "close"
+length = 0.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.13, -0.25, 0, 0.25, 0, 0.16, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.13, -0.25, 0, 0.25, 0, 0.16, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6)
+}
+
+[sub_resource type="Animation" id="Animation_uvppd"]
+resource_name = "pop_up"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.675, -0.25, 0, 0.25, 0, 1.115, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.675, -0.25, 0, 0.25, 0, 1.115, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3, 0.6)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m27f7"]
+_data = {
+"RESET": SubResource("Animation_2sh12"),
+"close": SubResource("Animation_q82df"),
+"pop_up": SubResource("Animation_uvppd")
+}
+
+[sub_resource type="Theme" id="Theme_s38ku"]
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_dfkmm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "pop_up"
+libraries = {
+"": SubResource("AnimationLibrary_m27f7")
+}
+
+[node name="RemoveTimer" type="Timer" parent="."]
+wait_time = 5.5
+autostart = true
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(217.5, 105)
+scale = Vector2(0.88, 0.88)
+
+[node name="DownloadWindowBgShadow" type="Sprite2D" parent="Node2D"]
+position = Vector2(50.2535, 15.75)
+scale = Vector2(0.481859, 0.481859)
+texture = ExtResource("1_fj7b8")
+
+[node name="DownloadWindowBg" type="Sprite2D" parent="Node2D"]
+position = Vector2(34.5, 1.00001)
+texture = ExtResource("1_cj0h3")
+
+[node name="GameTitle" type="RichTextLabel" parent="Node2D/DownloadWindowBg"]
+offset_left = -229.0
+offset_top = -58.0
+offset_right = 222.0
+offset_bottom = 24.0
+theme = SubResource("Theme_s38ku")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_pk68c")
+theme_override_font_sizes/normal_font_size = 24
+script = ExtResource("5_k7wo8")
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="Node2D"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -217.5
+offset_top = -105.0
+offset_right = 287.5
+offset_bottom = 114.0
+
+[node name="TextureButton" type="TextureButton" parent="Node2D/Control"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 127.0
+offset_right = 478.0
+offset_bottom = 191.0
+texture_normal = ExtResource("2_y8l7b")
+texture_pressed = ExtResource("7_th1rf")
+texture_hover = ExtResource("8_2vnds")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="RemoveTimer" to="." method="_on_remove_timer_timeout"]
+[connection signal="pressed" from="Node2D/Control/TextureButton" to="." method="_on_texture_button_pressed"]

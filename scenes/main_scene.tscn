@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0qbymw322lks"]
+
+[ext_resource type="Script" path="res://scripts/main_scene.gd" id="1_spc7y"]
+[ext_resource type="PackedScene" uid="uid://db1mgnv6xgies" path="res://scenes/main_ui.tscn" id="2_6p3yy"]
+
+[node name="main_scene" type="Node2D"]
+script = ExtResource("1_spc7y")
+
+[node name="main_ui" parent="." instance=ExtResource("2_6p3yy")]
+offset_left = -575.0
+offset_top = -323.0
+offset_right = -575.0
+offset_bottom = -323.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]

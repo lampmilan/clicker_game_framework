@@ -1,0 +1,108 @@
+[gd_scene load_steps=13 format=3 uid="uid://db1mgnv6xgies"]
+
+[ext_resource type="Texture2D" uid="uid://sb020clfxnjb" path="res://img/window_ui/upgrades/one_start/one_start_normal.png" id="1_j7w1f"]
+[ext_resource type="Texture2D" uid="uid://ctanf2mvwqthv" path="res://img/window_ui/upgrades/one_start/one_start_clicked.png" id="2_il7nn"]
+[ext_resource type="Script" path="res://scripts/UpgadeScrollContainer.gd" id="2_y463r"]
+[ext_resource type="Texture2D" uid="uid://fq787kbknhb1" path="res://img/window_ui/upgrades/one_start/one_start_hover.png" id="3_iy1lx"]
+[ext_resource type="Texture2D" uid="uid://dgucng2a0lax1" path="res://img/window_ui/upgrades/one_start/one_start_disable.png" id="4_rag02"]
+[ext_resource type="Texture2D" uid="uid://dhmllk3gr66fp" path="res://img/window_ui/auto_clickers/Névtelen 5_Rajztábla 1.png" id="17_1tput"]
+[ext_resource type="FontFile" uid="uid://4k22da87shwe" path="res://fonts/Roboto-Medium.ttf" id="18_5cryu"]
+[ext_resource type="Texture2D" uid="uid://cjupq4ob16u3d" path="res://icon.svg" id="18_ux56l"]
+[ext_resource type="Script" path="res://scripts/ClickerScrollContainer.gd" id="19_ovjou"]
+[ext_resource type="Texture2D" uid="uid://bvlf01bu0uwa1" path="res://img/window_ui/main_ui.svg" id="22_5dysa"]
+[ext_resource type="FontFile" uid="uid://cnqsrf03mar1v" path="res://fonts/Roboto-Bold.ttf" id="23_uktvx"]
+
+[sub_resource type="GDScript" id="GDScript_0xlc2"]
+script/source = "extends Control
+
+func _process(delta):
+	var money_amount = \"[center]\" + str(MoneySingleton.money) + \"[/center][center][font_size=28]Dollar\"
+	$MoneyText.set_text(money_amount)
+"
+
+[node name="main_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_0xlc2")
+
+[node name="MainUi" type="Sprite2D" parent="."]
+position = Vector2(1001, 324.183)
+scale = Vector2(0.601594, 0.601594)
+texture = ExtResource("22_5dysa")
+
+[node name="UpgadeScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 875.0
+offset_top = 221.0
+offset_right = 1578.0
+offset_bottom = 346.0
+scale = Vector2(0.36, 0.36)
+script = ExtResource("2_y463r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UpgadeScrollContainer"]
+layout_mode = 2
+
+[node name="OneStartUpgrade" type="TextureButton" parent="UpgadeScrollContainer/HBoxContainer"]
+visible = false
+texture_filter = 4
+clip_contents = true
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("1_j7w1f")
+texture_pressed = ExtResource("2_il7nn")
+texture_hover = ExtResource("3_iy1lx")
+texture_disabled = ExtResource("4_rag02")
+
+[node name="ClickerScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 876.0
+offset_top = 317.0
+offset_right = 1326.0
+offset_bottom = 822.0
+scale = Vector2(0.56, 0.56)
+script = ExtResource("19_ovjou")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ClickerScrollContainer"]
+layout_mode = 2
+
+[node name="SnitchScrapperButton" type="TextureButton" parent="ClickerScrollContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+texture_normal = ExtResource("17_1tput")
+texture_disabled = ExtResource("18_ux56l")
+
+[node name="SnitchScrapperPrice" type="RichTextLabel" parent="ClickerScrollContainer/VBoxContainer/SnitchScrapperButton"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 80.0
+offset_right = 362.0
+offset_bottom = 100.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("18_5cryu")
+
+[node name="SnitchScrapperNumber" type="RichTextLabel" parent="ClickerScrollContainer/VBoxContainer/SnitchScrapperButton"]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 52.0
+offset_right = 416.0
+offset_bottom = 92.0
+
+[node name="MoneyText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 873.0
+offset_top = 64.0
+offset_right = 1128.0
+offset_bottom = 193.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("23_uktvx")
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "[center]1000[/center]
+[center][font_size=28]Dollar"
+
+[connection signal="pressed" from="UpgadeScrollContainer/HBoxContainer/OneStartUpgrade" to="UpgadeScrollContainer" method="_on_one_start_upgrade_pressed"]
+[connection signal="pressed" from="ClickerScrollContainer/VBoxContainer/SnitchScrapperButton" to="ClickerScrollContainer" method="_on_snitch_scrapper_button_pressed"]
